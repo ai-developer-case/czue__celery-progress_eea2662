@@ -22,18 +22,18 @@ class AbstractProgressRecorder(object):
 class ConsoleProgressRecorder(AbstractProgressRecorder):
 
     def set_progress(self, current, total, description=""):
-        print('processed {} items of {}. {}'.format(current, total, description))
-
-
-    def stop_task(self, current, total, exc):
-        pass
-
-
-class ProgressRecorder(AbstractProgressRecorder):
-
-    def __init__(self, task):
-        self.task = task
-
+        if total > 0:
+            percent = (Decimal(current) / Decimal(total)) * Decimal(100)
+            percent = float(round(percent, 2))
+        self.task.update_state(
+            state=PROGRESS_STATE,
+            meta={
+                'current': current or 0,
+                'total': total or 100,
+                'percent': percent or 0,
+                'description': description or ""
+            }
+        )
     def set_progress(self, current, total, description=""):
         percent = 0
         if total > 0:
@@ -107,3 +107,4 @@ def _get_unknown_progress():
         'total': 100,
         'percent': 0,
     }
+

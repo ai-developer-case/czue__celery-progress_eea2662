@@ -75,8 +75,8 @@ class Progress(object):
                 return {
                     'complete': True,
                     'success': success,
-                    'progress': _get_completed_progress(),
-                    'result': self.result.get(self.task_id) if success else str(self.result.info),
+                    'progress': _get_completed_progress() if success else _get_unknown_progress(),
+                    'result': self.result.get() if success else str(self.result.info),
                 }
         elif self.result.state == PROGRESS_STATE:
             return {
@@ -84,13 +84,11 @@ class Progress(object):
                 'success': None,
                 'progress': self.result.info,
             }
-        elif self.result.state in ['PENDING', 'STARTED']:
-            return {
-                'complete': False,
-                'success': None,
-                'progress': _get_unknown_progress(),
-            }
-        return self.result.info
+        return {
+            'complete': False,
+            'success': None,
+            'progress': _get_unknown_progress(),
+        }
 
 
 def _get_completed_progress():

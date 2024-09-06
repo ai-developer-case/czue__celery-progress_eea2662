@@ -184,3 +184,4 @@ To use WebSockets, install with `pip install celery-progress[websockets,redis]` 
 `pip install celery-progress[websockets,rabbitmq]` (depending on broker dependencies).
 
 See `WebSocketProgressRecorder` and `websockets.js` for details.
+123

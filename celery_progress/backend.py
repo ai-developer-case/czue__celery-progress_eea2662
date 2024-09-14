@@ -103,7 +103,7 @@ def _get_completed_progress():
 
 def _get_unknown_progress():
     return {
-        'current': 0,
-        'total': 100,
+        'current': None,
+        'total': None,
         'percent': 0,
     }

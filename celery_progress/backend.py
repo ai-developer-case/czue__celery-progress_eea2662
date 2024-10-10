@@ -106,4 +106,5 @@ def _get_unknown_progress():
         'current': 0,
         'total': 100,
         'percent': 0,
+        'description': None,
     }
